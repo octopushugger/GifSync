@@ -2,7 +2,7 @@
 
 Made to help you sync gifs to audio or just quickly change the playback speed of any gif. 
 
-Input frame-time or BPM to change speed:
+Input frame-time or BPM to change speed, saves to the same folder as the source gif. 
 
 ![alt text](https://raw.githubusercontent.com/octopushugger/GifSync/main/ProgramScreenshot.png?raw=true)
 
