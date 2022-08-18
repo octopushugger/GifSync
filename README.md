@@ -11,7 +11,7 @@ https://stackoverflow.com/a/64474046/17075745
 
 And of course credit to the creators of Pillow, TkDnD, TkinterDnD, Tkinter, Python, and WinPython. 
 
-# Brain Dead Easy Installation for Windows:
+# Easy Installation for Windows:
 
 -Go to releases and download GifSync1.0.7z or GifSync1.0.zip:
 https://github.com/octopushugger/GifSync/releases
@@ -20,7 +20,7 @@ https://github.com/octopushugger/GifSync/releases
 
 -Run "Run GifSync.bat"
 
-# Smartass *I already have Python* Installation:
+# Long Way:
 (Should probably maybe work on non-windows systems idk untested goodluck)
 
 -Install Pillow through pip:
