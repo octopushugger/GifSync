@@ -23,6 +23,8 @@ https://github.com/octopushugger/GifSync/releases
 # Long Way:
 (Should probably maybe work on non-windows systems idk untested goodluck)
 
+-Install Python 3.10. Or whatever version you want, it will probably still work
+
 -Install Pillow through pip:
 ```
 pip install --upgrade pip
