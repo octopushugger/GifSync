@@ -13,7 +13,7 @@ And of course credit to the creators of Pillow, TkDnD, TkinterDnD, Tkinter, Pyth
 
 # Easy Installation for Windows:
 
--Go to releases and download GifSync1.0.7z or GifSync1.0.zip:
+-Go to releases and download GifSync1.0.1.7z:
 https://github.com/octopushugger/GifSync/releases
 
 -Extract
