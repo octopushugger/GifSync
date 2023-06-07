@@ -29,7 +29,6 @@ def show_text(event):
             try:
                 while 1:
                     im.seek(im.tell()+1)
-                    # do something to im
                     frameCnt = im.tell()
             except EOFError:
                 break # end of sequence
@@ -78,11 +77,45 @@ def restartbuttonpressed():
     loopgif = window.after(0, update)
 
 def savebuttonpressed():
+    global im
+    # gifs with lower than 20ms frametime default to 100ms i think, either way it's slow as balls so better to just move up to 20ms if it's less
+    frametime = 20
+    # frametime textbox
     if TextBox[0].get() != "":
-        global im
-        # im.save(openfilepath+"_GifSync.gif", save_all=True, duration=int(TextBox[0].get()), disposal=2)
-        save_transparent_gif(ImageSequence.Iterator(im),int(TextBox[0].get()),openfilepath.replace(".gif","")+"_GifSync"+str(TextBox[0].get())+".gif")
+        if TextBox[0].get() > 20:
+            frametime = TextBox[0].get()
+        filename = openfilepath.replace(".gif","")+"_GifSync_Frametime"+str(frametime)+"ms.gif"
 
+        # commented out because save_transparent_gif() appears to work fine for non-transparent gifs
+        # if has_transparency(im):
+        save_transparent_gif(ImageSequence.Iterator(im),int(frametime),filename)
+        # else:
+        #     im.save(filename, save_all=True, duration=int(TextBox[0].get()), disposal=2)
+
+    # bpm textbox
+    elif TextBox[1].get() != "":
+        BPM = int(TextBox[1].get())
+        if round(1000/(frameCnt+1)*60/int(TextBox[1].get())) > 20:
+            frametime = round(1000/(frameCnt+1)*60/int(TextBox[1].get()))
+        else:
+            BPM = int(round(1000/(frameCnt+1)*60/20))
+        filename = openfilepath.replace(".gif","")+"_GifSync_"+str(BPM)+"BPM.gif"
+        save_transparent_gif(ImageSequence.Iterator(im),int(frametime),filename)
+
+def has_transparency(img):
+    if img.info.get("transparency", None) is not None:
+        return True
+    if img.mode == "P":
+        transparent = img.info.get("transparency", -1)
+        for _, index in img.getcolors():
+            if index == transparent:
+                return True
+    elif img.mode == "RGBA":
+        extrema = img.getextrema()
+        if extrema[3][0] < 255:
+            return True
+
+    return False
 
 # create window
 window = TkinterDnD.Tk()
@@ -105,6 +138,9 @@ tk.Label(window, text='or BPM:').grid(row=2,column=1,sticky="ne")
 # TextBox[1] = tk.Entry(window,validate='key')
 # TextBox[1].grid(row=2, column=2, sticky="nw")
 # TextBox[1]['validatecommand'] = (TextBox[0].register(test_val),'%S','%d')
+
+
+tk.Label(window, text='Note: Min frametime 20ms\nBPM will be recalculated accordingly').grid(row=3,columnspan=4,sticky="n")
 
 TextBox = []
 for EntryNumber in range(0,2):
